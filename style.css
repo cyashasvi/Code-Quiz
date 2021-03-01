@@ -1,0 +1,26 @@
+header {
+    font-family: 'RocknRoll One', sans-serif;
+    font-size: 200%;
+    font-weight: bold;
+    text-align: center;
+}
+
+.Questions {
+    font-family: 'RocknRoll One', sans-serif;
+    font-size: 150%;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 83px;
+    margin-left: 30%;
+    margin-right: 30%;
+}
+
+#start {
+    margin-top: 40px
+}
+.btn-primary {
+    margin-top: 54px; 
+    background-color: blueviolet;
+    padding: 20px 40px;
+    border-color: blueviolet;   
+}
