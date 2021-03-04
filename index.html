@@ -8,20 +8,23 @@
     <link href="https://fonts.googleapis.com/css2?family=RocknRoll+One&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link  rel ="stylesheet" href ="style.css">
-    <script src="javascript.js"></script>
+ 
     <title>Coding Quiz</title>
 </head>
 <body>
-    <header>Coding Quiz!</header>
-    <div class= "Questions">
-        <p>This test is to challenge your skills in coding. You have a timer that will reduce every time you get 
+    <h1 id = "hs">High Score</h1>
+    <h2 id= "timer">Timer:</h2>
+    <header id ="questionEl">Coding Quiz!</header>
+    <div class= "Basic" id ="Choices">
+        <p id = "Para">This test is to challenge your skills in coding. You have a timer that will reduce every time you get 
             a question wrong. At the end of the quiz, you will get a score, showing you how well you did. Save your score 
             at the end. 
              <p id ="start">Click start to begin!</p>
         </p>
     </div>
         <div class ="text-center">
-            <button type="button" class="btn btn-primary btn-lg">Start</button>
+            <button  id= "starter" type="button" class="btn btn-primary btn-lg">Start</button>
         </div>
 </body>
+<script src="javascript.js"></script>
 </html>
