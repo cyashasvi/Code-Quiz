@@ -48,32 +48,41 @@ function generateQuestion () {
 
     var answerChoices = document.getElementById("Choices");
     var answerList = document.createElement("ul");
+    var answerButtons = []
 
     for (var i = 0; i < currentQuestion.answers.length; i++ ) {
         var answerButton = document.createElement("button");
         answerButton.textContent = i + 1 +"." + currentQuestion.answers[i];
         answerButton.style.background = '#8822dd';
         answerButton.style.color = "white";
-        answerButton.addEventListener('click', checkAnswer);
-
-
 
         var choices = document.createElement("li");
         answerChoices.appendChild(answerList);
         choices.appendChild(answerButton);
         answerList.appendChild(choices);
 
-
-    }
-    function checkAnswer(event) {
-        if (event.target.value === i + 1 +"." + currentQuestion.answer){
+        answerButtons[i] = [answerButton.textContent]
+        
+    } 
+    document.addEventListener('click', (event) => {
+        const isButton = event.target.nodeName === 'BUTTON';
+        console.log(answerButtons)
+        if (!isButton) {
+            return;
+        }
+        else if (isButton || answerButtons[2] === i + 1 +"." + currentQuestion.answer) {
             console.log("yay");
-        }
-        }
+    }
+    })
+   // function checkAnswer(event) {
+      //  console.log(answerButton.textContent);
+          //  if (event.target.textContent === i + 1 +"." + currentQuestion.answer){
+             //   console.log("yay");
+     //   }
+     //   }
     currentIndex ++;
 
 }
-
 window.onload = function() {
     const starterButton
      = document.getElementById("starter")
