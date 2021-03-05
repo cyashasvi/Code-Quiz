@@ -37,7 +37,24 @@ var questions = [
 
 var currentIndex = 0;
 
+var seconds = 60;
 
+var score = 0; 
+
+document.getElementById('hs').textContent = 'High Score: ' + score;
+
+function timer() {
+   
+    var timer = setInterval(function () {
+        document.getElementById("timer").textContent = 'Timer: ' + seconds;
+        seconds--;
+        document.getElementById('hs').textContent = 'High Score: ' + score;
+        if (seconds < 0) {
+            clearInterval(timer);
+        }
+    }, 1000)
+
+}
 
 function generateQuestion () {
     var currentQuestion = questions[currentIndex];
@@ -48,41 +65,68 @@ function generateQuestion () {
 
     var answerChoices = document.getElementById("Choices");
     var answerList = document.createElement("ul");
-    var answerButtons = []
 
     for (var i = 0; i < currentQuestion.answers.length; i++ ) {
         var answerButton = document.createElement("button");
-        answerButton.textContent = i + 1 +"." + currentQuestion.answers[i];
+        answerButton.textContent =  currentQuestion.answers[i];
         answerButton.style.background = '#8822dd';
         answerButton.style.color = "white";
+        answerButton.id = i; //adds unique id to each button, allowing me to add an eventlistener to each button
 
         var choices = document.createElement("li");
         answerChoices.appendChild(answerList);
         choices.appendChild(answerButton);
         answerList.appendChild(choices);
+        if (i == 4){
+            Final();
+            break;
+        }
 
-        answerButtons[i] = [answerButton.textContent]
         
     } 
-    document.addEventListener('click', (event) => {
-        const isButton = event.target.nodeName === 'BUTTON';
-        console.log(answerButtons)
-        if (!isButton) {
-            return;
-        }
-        else if (isButton || answerButtons[2] === i + 1 +"." + currentQuestion.answer) {
-            console.log("yay");
-    }
-    })
-   // function checkAnswer(event) {
-      //  console.log(answerButton.textContent);
-          //  if (event.target.textContent === i + 1 +"." + currentQuestion.answer){
-             //   console.log("yay");
-     //   }
-     //   }
-    currentIndex ++;
+    document.getElementById('0').addEventListener('click',checkAnswer)
+    document.getElementById('1').addEventListener('click',checkAnswer)  
+    document.getElementById('2').addEventListener('click',checkAnswer)  
+    document.getElementById('3').addEventListener('click',checkAnswer)
 
+    function removeAllAnswers(parent) {
+        while (parent.firstChild) {
+            parent.removeChild(parent.firstChild);
+        }
+    }
+
+    function checkAnswer(event) {
+        var wrong = document.createElement("p");
+        const AllAnswers = document.querySelector('#Choices');
+        
+        if (event.target.textContent == currentQuestion.answer){
+            removeAllAnswers(AllAnswers);
+            generateQuestion();
+            score += 20;
+            localStorage.setItem('highscore', score)
+
+        }
+        else if (event.target.textContent !== currentQuestion.answer) {
+            wrong.textContent = "Wrong!"
+             wrong.style.color = 'red';
+            removeAllAnswers(AllAnswers);
+            generateQuestion();
+            seconds = seconds - 10;
+        }
+        else if (seconds == 0) {
+           Final();
+        }
+        }
+    currentIndex ++;
+    
+    function Final() {
+        questionEl.textContent = "Final Results";
+        var finalScore = document.createElement('h3');
+        finalScore.textContent = localStorage.getItem('highscore');
+        finalScore.appendChild(answerChoices);
+    }
 }
+
 window.onload = function() {
     const starterButton
      = document.getElementById("starter")
@@ -92,6 +136,7 @@ window.onload = function() {
         removeP = document.getElementById("start");
         removeP.remove();
         starterButton.remove()
-        generateQuestion()
+        generateQuestion();
+        timer()
     });
 }
